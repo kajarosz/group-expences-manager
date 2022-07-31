@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Group Expences{% endblock %}
+
+{% block auth %}
+<h1>Add new expence</h1>
+<form method="POST">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" aria-describedby="expenceNameHelp" placeholder="Your new expence">
+    <small id="expanceNameHelp" class="form-text text-muted">Your expence name should be up to 200 characters long.</small>
+  </div>
+  <div class="form-group">
+    <label for="amount">Currency</label>
+    <input type="number" class="form-control" id="amount" name="amount" aria-describedby="amountHelp" placeholder="100">  {{ group.currency.value }}
+    <small id="amountHelp" class="form-text text-muted">Amount should be a number.</small>
+  </div>
+  <div class="form-group">
+    <p>This expence will be split equally between all group members. You can set custom split <a href="/groups/{{ group.id }}/expence/add-new">here</a>.</p>
+  </div>
+  <button type="submit" name="submit_button" value="expence" class="btn btn-primary">Add expence</button>
+</form>
+
+<h1>Group <b>{{ group.name }} </b>participants</h1>
+{% if participants | length < 2 %}
+  <p>You are the only participant in this group!</p>
+{% else %}
+<ul>
+  {% for participant in participants %}
+  <li>{{ participant.login }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+</br>
+<form method="POST">
+  <div class="form-group">
+    <label for="login">Login</label>
+    <input type="text" class="form-control" id="login" name="login" placeholder="New group participant">
+  </div>
+  OR
+  <div class="form-group">
+    <label for="email">E-mail</label>
+    <input type="email" class="form-control" id="email" name="email" placeholder="New group participant">
+  </div>
+  <button type="submit" name="submit_button" value="participant" class="btn btn-primary">Add participant</button>
+</form>
+</br>
+<h1>Group <b>{{ group.name }} </b>expences</h1>
+{% if expences is none %}
+  <p>There are no expences yet!</p>
+{% else %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Owner</th>
+        <th scope="col">Currency</th>
+        <th scope="col">Is closed?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for expence in expences %}
+      <tr>
+        <th scope="row"><a href="">{{ expence.name }}</a></th>
+        <td>{{ expence.payer }}</td>
+        <td>{{ expence.amount }}</td>
+        <td>{{ group.currency.value }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New Expence{% endblock %}
+
+{% block auth %}
+<h1>Add new expence</h1>
+<form method="POST">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" aria-describedby="expenceNameHelp" placeholder="Your new expence">
+    <small id="expanceNameHelp" class="form-text text-muted">Your expence name should be up to 200 characters long.</small>
+  </div>
+  <div class="form-group">
+    <label for="amount">Currency</label>
+    <input type="text" class="form-control" id="amount" name="amount" aria-describedby="amountHelp" placeholder="100.00"> {{ group.currency.value }}
+    <small id="amountHelp" class="form-text text-muted">Amount should be a number.</small>
+  </div>
+  <div class="form-group">
+    <label for="payer">Payer</label>
+    <select class="form-control" id="payer" name="payer" aria-describedby="payerHelp">
+      {% for participant in participants %}
+      <option value="{{ participant.id }}">{{ participant.login }}</option>
+      {% endfor %}
+    </select>
+    <small id="payerHelp" class="form-text text-muted">Choose who payed this expence.</small>
+  </div>
+  <div class="form-group">
+    <label for="debtors">Debtors</label>
+    <select multiple class="form-control" id="debtors" name="debtors" aria-describedby="debtorsHelp">
+      {% for participant in participants %}
+      <option value="{{ participant.id }}">{{ participant.login }}</option>
+      {% endfor %}
+    </select>
+    <small id="debtorsHelp" class="form-text text-muted">Choose who this expence should be split between.</small>
+  </div>
+  <button type="submit" class="btn btn-primary">Add expence</button>
+</form>
+
+{% endblock %}

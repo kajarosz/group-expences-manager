@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Add new group{% endblock %}
+
+{% block auth %}
+<form method="POST">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name" aria-describedby="groupNameHelp" placeholder="Your new group">
+    <small id="groupNameHelp" class="form-text text-muted">Your group name should be up to 200 characters long.</small>
+  </div>
+  <div class="form-group">
+    <label for="currency">Currency</label>
+    <select class="form-control" id="currency" name="currency">
+      {% for currency in currency_list %}
+      <option value="{{ currency }}">{{ currency }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Create new group</button>
+</form>
+{% endblock %}

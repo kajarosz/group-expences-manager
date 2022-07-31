@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}My groups{% endblock %}
+
+{% block auth %}
+
+<h1>Owned groups</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Owner</th>
+      <th scope="col">Currency</th>
+      <th scope="col">Is closed?</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for group in owned_groups %}
+    <tr>
+      <th scope="row"><a href="/groups/{{group.id}}">{{ group.name }}</a></th>
+      <td>{{ group.owner }}</td>
+      <td>{{ group.currency.value }}</td>
+      <td>{{ group.is_closed }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</br>
+<h1>Shared groups</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Owner</th>
+      <th scope="col">Currency</th>
+      <th scope="col">Is closed?</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for group in shared_groups %}
+    <tr>
+      <th scope="row"><a href="/groups/{{group.id}}">{{ group.name }}</a></th>
+      <td>{{ group.owner }}</td>
+      <td>{{ group.currency.value }}</td>
+      <td>{{ group.is_closed }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
