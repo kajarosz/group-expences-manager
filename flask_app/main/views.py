@@ -128,7 +128,7 @@ def expence_add_new(id):
             name = request.form.get('name')
             amount = request.form.get('amount')
             payer_id = int(request.form.get('payer'))
-            debtors = request.form.get('debtors')
+            debtors = request.form.getlist('debtors')
         except:
             message = 'Expence details are missing.'
             raise RequestException(message)
